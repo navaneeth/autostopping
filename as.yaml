@@ -2,7 +2,6 @@ apiVersion: ccm.harness.io/v1
 kind: AutoStoppingRule
 metadata:
     name: autostopping-sample
-    namespace: default
     annotations:
         harness.io/cloud-connector-id: autostopautopilot_Costaccess
 spec:
