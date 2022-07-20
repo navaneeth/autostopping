@@ -1,56 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: ccm.harness.io/v1
+kind: AutoStoppingRule
 metadata:
-  name: autostopping-sample
-  labels:
-    app: autostopping-sample
+    name: autostopping-sample
+    namespace: default
+    annotations:
+        harness.io/cloud-connector-id: Lightwing_Non_Prod
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: autostopping-sample
-  template:
-    metadata:
-      labels:
-        app: autostopping-sample
-    spec:
-      containers:
-      - name: autostopping-sample
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: autostopping-sample
-spec:
-  selector:
-    app: autostopping-sample
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-
----
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: autostopping-sample
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  ingressClassName: nginx
-  rules:
-  - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: autostopping-sample
-            port:
-              number: 80
+    service:
+        name: autostopping-sample
+        port: 80
+    ingress:
+        name: autostopping-sample
+        controllerName: nginx
+    idleTimeMins: 5
+    hideProgressPage: false
