@@ -4,7 +4,7 @@ metadata:
     name: autostopping-sample
     namespace: default
     annotations:
-        harness.io/cloud-connector-id: Lightwing_Non_Prod
+        harness.io/cloud-connector-id: autostopautopilot_Costaccess
 spec:
     service:
         name: autostopping-sample
